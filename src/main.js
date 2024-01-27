@@ -5,6 +5,7 @@ import 'primevue/resources/themes/aura-light-indigo/theme.css'
 
 import { createApp } from "vue";
 import App from "./App.vue";
+import router from "./router";
 import PrimeVue from "primevue/config";
 import AutoComplete from 'primevue/autocomplete';
 import Accordion from 'primevue/accordion';
@@ -106,9 +107,9 @@ import TreeTable from 'primevue/treetable';
 import TriStateCheckbox from 'primevue/tristatecheckbox';
 import VirtualScroller from 'primevue/virtualscroller';
 
-
 const app = createApp(App);
 
+app.use(router);
 app.use(PrimeVue, { ripple: true  });
 app.use(ConfirmationService);
 app.use(ToastService);
