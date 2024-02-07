@@ -30,9 +30,9 @@ const filters = ref({
 });
 
 const statuses = ref([
-    { label: "INSTOCK", value: "instock" },
-    { label: "LOWSTOCK", value: "lowstock" },
-    { label: "OUTOFSTOCK", value: "outofstock" },
+    "instock",
+    "lowstock",
+    "outofstock",
 ]);
 
 const totalCostoSelectedMateriales = computed(()=>{
@@ -125,7 +125,7 @@ const exportCSV = () => {
 const findIndexById = (id) => {
     let index = -1;
     for (let i = 0; i < listMateriales.value.length; i++) {
-        if (listProductos.value[i].id == id) {
+        if (listMateriales.value[i].id == id) {
             index = i;
             break;
         }
@@ -135,13 +135,13 @@ const findIndexById = (id) => {
 
 const getStatusLabel = (status) => {
     switch (status) {
-        case "INSTOCK":
+        case "instock":
             return "success";
 
-        case "LOWSTOCK":
+        case "lowstock":
             return "warning";
 
-        case "OUTOFSTOCK":
+        case "outofstock":
             return "danger";
 
         default:
@@ -218,17 +218,20 @@ initComponents();
         <template #empty> No se encontraron materiales. </template>
         <template #loading> Cargando materiales. </template>
         <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-        <Column field="clave" sortable header="Clave"></Column>
-        <Column field="descripcion" header="Descripción"></Column>
-        <Column field="precio" sortable header="Precio">
+        <Column field="clave" sortable header="Material">
             <template #body="slotProps">
-                {{ formatCurrency(slotProps.data.precio) }}
+                <Tag
+                    :value="slotProps.data.status"
+                    :severity="getStatusLabel(slotProps.data.status)"
+                /> <br>
+               <b><small> {{ slotProps.data.clave }}</small></b> <br>
+               <small> {{ slotProps.data.descripcion }}</small>
             </template>
         </Column>
-        <Column field="cantidad" header="Cantidad">
+        <Column field="precio" sortable header="Precio">
             <template #body="slotProps">
-                {{ slotProps.data.cantidad }}
-                <small>{{ slotProps.data.unidad }}</small>
+                {{ formatCurrency(slotProps.data.precio) }} <br>
+                <small> x {{ slotProps.data.cantidad }} {{ slotProps.data.unidad }}</small>
             </template>
         </Column>
         <Column field="costo" sortable header="Costo">
@@ -236,19 +239,6 @@ initComponents();
                 <b class="text-primary">{{ formatCurrency(slotProps.data.costo) }}</b>
             </template></Column
         >
-        <Column
-            field="status"
-            header="Status"
-            sortable
-            style="min-width: 12rem"
-        >
-            <template #body="slotProps">
-                <Tag
-                    :value="slotProps.data.status"
-                    :severity="getStatusLabel(slotProps.data.status)"
-                />
-            </template>
-        </Column>
         <Column :exportable="false" style="min-width: 8rem">
             <template #body="slotProps">
                 <Button
@@ -301,28 +291,16 @@ initComponents();
 
         <div class="field">
             <label for="inventoryStatus" class="mb-3">Status Inventario</label>
-            <Dropdown
-                id="inventoryStatus"
-                v-model="formMaterial.status"
-                :options="statuses"
-                optionLabel="label"
-                placeholder="Seleccionar status"
-            >
+            <Dropdown id="inventoryStatus" v-model="formMaterial.status" :options="statuses" optionLabel="label" placeholder="Seleccionar status">
                 <template #value="slotProps">
                     <div v-if="slotProps.value && slotProps.value.value">
-                        <Tag
-                            :value="slotProps.value.value"
-                            :severity="getStatusLabel(slotProps.value.label)"
-                        />
+                        <Tag :value="slotProps.value.value" :severity="getStatusLabel(slotProps.value.label)" />
                     </div>
                     <div v-else-if="slotProps.value && !slotProps.value.value">
-                        <Tag
-                            :value="slotProps.value"
-                            :severity="getStatusLabel(slotProps.value)"
-                        />
+                        <Tag :value="slotProps.value" :severity="getStatusLabel(slotProps.value)" />
                     </div>
                     <span v-else>
-                        {{ slotProps.placeholder }}
+                        {{slotProps.placeholder}}
                     </span>
                 </template>
             </Dropdown>
