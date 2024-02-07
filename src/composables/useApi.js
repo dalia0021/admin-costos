@@ -35,7 +35,7 @@ export const useApi = () => {
 
   const updateMaterial = async (id, data) => {
     try {
-        await updateDoc(doc(db, "materiales", id), data);
+        await updateDoc(doc(db, "materiales", id.toString()), data);
       } catch (e) {
         console.error("Error adding document: ", e);
       }
