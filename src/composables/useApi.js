@@ -3,12 +3,12 @@ import { collection, getFirestore, doc, setDoc, getDocs, query, updateDoc, order
 
 const firebaseConfig = {
   apiKey: process.env.APP_APIKEY,
-  authDomain: "craft-luharud-d3940.firebaseapp.com",
-  projectId: "craft-luharud-d3940",
-  storageBucket: "craft-luharud-d3940.appspot.com",
-  messagingSenderId: "803196766128",
-  appId: "1:803196766128:web:88ac1e715ba131dfddf875",
-  measurementId: "G-S1YT50G4JJ",
+  authDomain: process.env.APP_AUTHDOMAIN,
+  projectId: process.env.APP_PROJECTID,
+  storageBucket: process.env.APP_STORAGEBUCKET,
+  messagingSenderId: process.env.APP_MESSAGINGSENDERID,
+  appId: process.env.APP_APPID,
+  measurementId: process.env.APP_MEASUREMENTID,
 };
 
 // Initialize Firebase
