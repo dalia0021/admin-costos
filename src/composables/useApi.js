@@ -11,6 +11,8 @@ const firebaseConfig = {
   measurementId: process.env.APP_MEASUREMENTID,
 };
 
+console.log( process.env.APP_PROJECTID, process.env.APP_APIKEY)
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore();
