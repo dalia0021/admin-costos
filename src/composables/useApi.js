@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { collection, getFirestore, doc, setDoc, getDocs, query, updateDoc, orderBy  } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_APIKEY,
+  apiKey: process.env.APP_APIKEY,
   authDomain: "craft-luharud-d3940.firebaseapp.com",
   projectId: "craft-luharud-d3940",
   storageBucket: "craft-luharud-d3940.appspot.com",
