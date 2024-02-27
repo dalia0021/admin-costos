@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { collection, getFirestore, doc, setDoc, getDocs, query, updateDoc, orderBy  } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBjWdz8bpYyQtiMd_OUGpNPiNFOzOGoUQo",
-  authDomain: "craft-luharud-d3940.firebaseapp.com",
-  projectId: "craft-luharud-d3940",
-  storageBucket: "craft-luharud-d3940.appspot.com",
-  messagingSenderId: "803196766128",
-  appId: "1:803196766128:web:88ac1e715ba131dfddf875",
-  measurementId: "G-S1YT50G4JJ",
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
