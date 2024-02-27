@@ -41,12 +41,12 @@ jobs:
         run: npm run build
         env:
             APP_APIKEY: ${{ secrets.CL_APP_APIKEY }}
-            APP_APPID: $ {{ secrets.CL_APP_APPID }}
-            APP_AUTHDOMAIN: $ {{ secrets.CL_APP_AUTHDOMAIN }}
-            APP_MEASUREMENTID: $ {{ secrets.CL_APP_MEASUREMENTID }}
-            APP_MESSAGINGSENDERID: $ {{ secrets.CL_APP_MESSAGINGSENDERID }}
-            APP_PROJECTID: $ {{ secrets.CL_APP_PROJECTID }}
-            APP_STORAGEBUCKET: $ {{ secrets.CL_APP_STORAGEBUCKET }}
+            APP_APPID: ${{ secrets.CL_APP_APPID }}
+            APP_AUTHDOMAIN: ${{ secrets.CL_APP_AUTHDOMAIN }}
+            APP_MEASUREMENTID: ${{ secrets.CL_APP_MEASUREMENTID }}
+            APP_MESSAGINGSENDERID: ${{ secrets.CL_APP_MESSAGINGSENDERID }}
+            APP_PROJECTID: ${{ secrets.CL_APP_PROJECTID }}
+            APP_STORAGEBUCKET: ${{ secrets.CL_APP_STORAGEBUCKET }}
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
