@@ -25,13 +25,13 @@ jobs:
       runs-on: ubuntu-latest
       steps:
       - name: test
+        env:
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
         run: |
           if ["$VITE_API_KEY" == "AIzaSyBjWdz8bpYyQtiMd_OUGpNPiNFOzOGoUQo"] 
           then
             echo "es secreto"
           fi
-        env: 
-          VITE_API_KEY: ${{ secrets.$VITE_API_KEY }}
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v2.0
         with:
