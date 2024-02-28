@@ -38,7 +38,7 @@ jobs:
         env:
           VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
         run: |
-          echo $VITE_API_KEY
+          echo $VITE_API_KEY >> secrets.txt
         
 
   # Single deploy job since we're just deploying
