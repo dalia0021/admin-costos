@@ -34,6 +34,12 @@ jobs:
           envkey_VITE_MESSAGING_SENDER_ID: ${{ secrets.VITE_MESSAGING_SENDER_ID }}
           envkey_VITE_APP_ID: ${{ secrets.VITE_APP_ID }}
           envkey_VITE_MEASUREMENT_ID: ${{ secrets.VITE_MEASUREMENT_ID }}
+      - shell: bash
+        env:
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+        run: |
+          example-command "$SUPER_SECRET"
+        
 
   # Single deploy job since we're just deploying
   deploy:
