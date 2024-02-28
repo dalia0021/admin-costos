@@ -24,6 +24,11 @@ jobs:
   create-envfile:
       runs-on: ubuntu-latest
       steps:
+      - name: test 1
+        env:
+          VITE_API: ${{ secrets.VITE_API }}
+        run: |
+          echo $VITE_API
       - name: test
         env:
           VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
