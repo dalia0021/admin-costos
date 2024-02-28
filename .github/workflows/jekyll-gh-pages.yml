@@ -26,7 +26,7 @@ jobs:
       steps:
       - name: test
         run: |
-          if ["$VITE_API_KEY" == "" "AIzaSyBjWdz8bpYyQtiMd_OUGpNPiNFOzOGoUQo"] 
+          if ["$VITE_API_KEY" == "AIzaSyBjWdz8bpYyQtiMd_OUGpNPiNFOzOGoUQo"] 
           then
             echo "es secreto"
           fi
