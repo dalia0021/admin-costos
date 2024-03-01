@@ -44,7 +44,7 @@ const statuses = ref([
 
 const totalCostoSelectedMateriales = computed(() => {
     return selectedMateriales.value.reduce((total, item) => {
-        if(item.unidad = "cm2"){
+        if(item.unidad == "cm2"){
             return  total + (item.base * item.altura ) * item.costo
         }
         return total + item.cantidad * item.costo;
