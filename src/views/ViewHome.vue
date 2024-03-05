@@ -194,7 +194,31 @@ const getNewID = () => {
 };
 
 const exportCSV = () => {
-    dt.value.exportCSV();
+    let titles = ['id','unidad','precio','status','clave','cantidad','costo','descripcion']
+
+    let csv = 'id,unidad,precio,status,clave,cantidad,costo,descripcion \n';
+    let items = JSON.parse(
+        JSON.stringify(listMateriales.value)
+    );
+    items.forEach((row) => {
+        
+        titles.forEach((clave) => {
+            let val = row[clave].toString()
+            if(clave == "descripcion"){
+               val = val.replace(/\n+/g, "");
+            }
+            csv += val.concat(',');
+        });
+
+        csv += "\n"; 
+    });
+ 
+    const anchor = document.createElement('a');
+    anchor.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    anchor.target = '_blank';
+    anchor.download = 'catalogo_materiales.csv';
+    anchor.click(); 
+    //dt.value.exportCSV();
 };
 
 const findIndexById = (id) => {
@@ -484,6 +508,16 @@ initComponents();
                                      :class="{ 'border-top-1 surface-border pt-1': index !== 0 }">
                                     <div v-if="item.unidad == 'cm2'" class="flex flex-row justify-content-between align-items-center gap-3 flex-1">
                                         <div class="flex flex-row align-items-center">
+                                          <div class="flex flex-column mr-1">
+                                                <Button icon="pi pi-angle-up"
+                                                        @click="item.cantidad += 1"
+                                                        text
+                                                        rounded />
+                                                <Button icon="pi pi-angle-down"
+                                                        @click="item.cantidad -= 1"
+                                                        text
+                                                        rounded />
+                                            </div>
                                             <InputNumber v-model="item.base" showButtons buttonLayout="vertical" style="width: 3rem; min-width: 3rem;" :min="0" class="mr-2">
                                                 <template #incrementbuttonicon>
                                                     <span class="pi pi-plus" />
