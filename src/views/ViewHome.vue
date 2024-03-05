@@ -45,7 +45,7 @@ const statuses = ref([
 const totalCostoSelectedMateriales = computed(() => {
     return selectedMateriales.value.reduce((total, item) => {
         if(item.unidad == "cm2"){
-            return  total + (item.base * item.altura ) * item.costo
+            return  total + ((item.base * item.altura) * item.cantidad ) * item.costo
         }
         return total + item.cantidad * item.costo;
     }, 0);
@@ -92,12 +92,15 @@ const showModalMaterialCosto = () => {
     selectedMateriales.value = JSON.parse(
         JSON.stringify(selectedMateriales.value)
     );
-    selectedMateriales.value.forEach((item) => {
+    
+     selectedMateriales.value.forEach((item) => {
+        if(item.modificado) return
         item.cantidad = 1;
         item.base = 1;
-        item.altura = 1;
+        item.altura = 1; 
+        item.modificado = true;
     });
-    modalMaterialCosto.value = true;
+    modalMaterialCosto.value = true; 
 };
 
 const showModalEditMaterial = (item) => {
@@ -130,6 +133,14 @@ const duplicateMaterial = (item) => {
         JSON.stringify(item)
     ));
 };
+
+const removeMaterial = (index) => {
+    selectedMateriales.value.splice(index, 1); 
+    selectedMateriales.value = JSON.parse(
+        JSON.stringify(selectedMateriales.value)
+    );
+   
+}
 
 const saveMaterial = async () => {
     submitted.value = true;
@@ -451,14 +462,14 @@ initComponents();
                         <InputNumber id="precio"
                                      v-model="formMaterial.base"
                                      required="true"
-                                     integeronly/>
+                                     :minFractionDigits="2" />
                     </div>
                     <div class="field col">
                         <label for="cantidad">Altura</label>
                         <InputNumber id="cantidad"
                                      required="true"
                                      v-model="formMaterial.altura"
-                                     integeronly />
+                                     :minFractionDigits="2"  />
                     </div>
                 </div>
 
@@ -539,14 +550,18 @@ initComponents();
                                                 <div>
                                                     <small><b class="text-sm">{{ item.clave }}</b></small><br>
                                                     <small>{{ item.descripcion }}</small><br>
-                                                    <small class="text-primary">{{ item.base * item.altura }} {{ item.unidad }} x {{ formatCurrency(item.costo) }} </small>
+                                                    <small class="text-primary">{{ item.cantidad }} pieza{{ item.cantidad > 1 ? 's':'' }} de {{ item.base * item.altura }} {{ item.unidad }} x {{ formatCurrency(item.costo) }} </small>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="flex flex-row align-items-center align-content-end">
-                                            <span class="text-lg font-semibold text-900">{{ formatCurrency(item.costo * (item.base * item.altura)) }}</span>
+                                            <span class="text-lg font-semibold text-900">{{ formatCurrency(item.costo * ((item.base * item.altura)* item.cantidad)) }}</span>
                                             <Button icon="pi pi-copy"
                                                         @click="duplicateMaterial(item)"
+                                                        text
+                                                        rounded />
+                                            <Button icon="pi pi-times"
+                                                        @click="removeMaterial(index)"
                                                         text
                                                         rounded />
                                         </div>
@@ -575,6 +590,10 @@ initComponents();
                                                         @click="duplicateMaterial(item)"
                                                         text
                                                         rounded />
+                                            <Button icon="pi pi-times"
+                                                        @click="removeMaterial(index)"
+                                                        text
+                                                        rounded />
                                         </div>
                                         
                                     </div>
@@ -592,6 +611,12 @@ initComponents();
                         <span class="text-xl font-semibold text-primary">{{ formatCurrency(totalCostoSelectedMateriales) }}</span>
                     </div>
                 </div>
+                <template #footer>
+                    <Button label="Borrar"
+                            icon="pi pi-times"
+                            text
+                            @click="resetModalListSelected()" />
+                </template>
             </Dialog>
         </div>
     </div>
