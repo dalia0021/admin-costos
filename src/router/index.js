@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import ViewHome from "@src/views/ViewHome.vue";
+import ViewProductos from "@src/views/ViewProductos.vue";
 
 const router = createRouter({
     history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -12,6 +13,10 @@ const router = createRouter({
             path: "/inicio",
             name: "home",
             component: ViewHome,
+        },{
+            path: "/productos",
+            name: "productos",
+            component: ViewProductos,
         },
     ],
 });
