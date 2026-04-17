@@ -5,7 +5,7 @@ import vue from "@vitejs/plugin-vue";
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [vue()],
-    base: "https://dalia0021.github.io/admin-costos",
+    base: "https://dalia0021.github.io/admin-costos/",
     resolve: {
         alias: [
           { find: '@src', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
